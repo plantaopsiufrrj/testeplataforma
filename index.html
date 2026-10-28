@@ -2029,6 +2029,29 @@
   background-color: var(--accent, #173B2E) !important;
 }
 </style>
+<style id="publico-ajustes-botoes-etapas-20261028">
+/* Página pública: botões, ordem das etapas e tipografia do menu */
+#inicio .publico-hero {height:auto!important;min-height:clamp(570px,40vw,650px)!important;}
+#inicio .publico-hero-conteudo {min-height:inherit;height:auto!important;padding-bottom:26px!important;}
+
+#inicio .publico-hero-acoes {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));justify-items:stretch;align-items:center;gap:14px 22px;width:min(100%,1180px);margin-left:auto;margin-right:auto;}
+#inicio .publico-hero-acoes > .publico-cta-publica {box-sizing:border-box;width:100%!important;max-width:none!important;flex:none!important;}
+#inicio .publico-hero-acoes > .publico-cta-publica:first-child {background:#edc953!important;color:#173B2E!important;border-color:rgba(255,255,255,.85)!important;}
+#inicio .publico-hero-acoes > .publico-cta-experiencia {background:#8dcceb!important;color:#173B2E!important;border-color:rgba(255,255,255,.85)!important;}
+#inicio .publico-hero-acoes > .publico-cta-floresta {grid-column:1 / -1;justify-self:center;width:min(100%,460px)!important;max-width:460px!important;background:#173B2E!important;color:#fff!important;border-color:#fff!important;}
+#inicio .publico-cabecalho > nav > a {font-size:clamp(17px,1.38vw,22px)!important;line-height:1.2;}
+#inicio #conteudoPaginaPublica > #comofunciona {width:min(calc(100% - 40px),1500px);max-width:1500px;margin:20px auto 0;padding:30px clamp(18px,3vw,42px);border:1px solid #e5e8dc;border-radius:24px;background:rgba(255,253,248,.94);box-shadow:0 6px 22px #283d3014;text-align:center;}
+#inicio #conteudoPaginaPublica > #comofunciona .etapas {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px;}
+#inicio #conteudoPaginaPublica > #comofunciona .etapa {width:auto;min-width:0;text-align:left;}
+@media(max-width:700px){
+ #inicio .publico-hero {min-height:750px!important;}
+ #inicio .publico-hero-acoes {grid-template-columns:1fr!important;gap:10px!important;width:min(100%,420px);}
+ #inicio .publico-hero-acoes > .publico-cta-floresta {grid-column:1;max-width:none!important;}
+ #inicio #conteudoPaginaPublica > #comofunciona .etapas {grid-template-columns:1fr;}
+ #inicio #conteudoPaginaPublica > #comofunciona {width:calc(100% - 28px);padding:22px 16px;}
+}
+@media(min-width:701px) and (max-width:1100px){#inicio .publico-hero-acoes{gap:10px;}#inicio .publico-hero-acoes > .publico-cta-publica{font-size:clamp(14px,1.7vw,20px)!important;}}
+</style>
 </head>
 <body>
 <div aria-label="Foto ampliada do plantão" aria-modal="true" class="foto-ampliada" id="fotoAmpliada" onclick="fecharFotoAmpliada()" role="dialog">
@@ -2060,14 +2083,9 @@
     <div class="publico-hero-titulos"><div class="publico-sobretitulo">UNIVERSIDADE FEDERAL RURAL DO RIO DE JANEIRO</div><div class="publico-frase-hero">Plantão Psicológico da UFRRJ</div><p>Um espaço para ser escutado e acolhido</p><p>Atendimento psicológico gratuito oferecido em um encontro único.</p></div>
     <div class="publico-hero-acoes"><button class="btn publico-cta-publica" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfPzBO8NqsjTlClXcIL7-JrhIsFgM5Z46Y0BhjjQ8bVDEXjdA/viewform?usp=dialog', '_blank')">
         Solicitar atendimento on-line
-      </button><a class="btn publico-cta-publica publico-cta-experiencia" href="#experienciasPlantao">Compartilhar sua experiência →</a></div>
+      </button><a class="btn publico-cta-publica publico-cta-experiencia" href="#experienciasPlantao">Compartilhar sua experiência →</a><a class="btn publico-cta-publica publico-cta-floresta" href="#" onclick="mostrarLogin(); return false;">Floresta dos Plantonistas →</a></div>
   </div>
 </div>
-<div class="publico-conteudo-grid" aria-label="Informações e serviços do Plantão Psicológico">
-<section id="sobre">
-<h2>O que é um plantão psicológico?</h2>
-<p>Um plantão psicológico é um encontro momentâneo para ser escutado e apoiado por plantonistas qualificados para escutar qualquer sofrimento emocional ou interesse em conversar que você tenha. A ideia não é realizar um tratamento contínuo e a resolução de grandes problemas, como é o caso da psicoterapia. Nossa proposta no Plantão é brevemente te ajudar a ter um alívio psicológico e encontrar caminhos para suas demandas emociomais mais urgentes. Em metáfora, o Plantão pode ser comparado com uma grande árvore, em que você pode utilizarpara respirar e se refrescar diante de um dia com um sol forte.</p>
-</section>
 <section id="comofunciona">
 <h2>Etapas da solicitação:</h2>
 <div class="etapas">
@@ -2076,6 +2094,12 @@
 <div class="etapa"><strong>3. Atendimento</strong><p>Você será chamado(a) pelo Whatsapp para marcar um atendimento.</p></div>
 </div>
 </section>
+<div class="publico-conteudo-grid" aria-label="Informações e serviços do Plantão Psicológico">
+<section id="sobre">
+<h2>O que é um plantão psicológico?</h2>
+<p>Um plantão psicológico é um encontro momentâneo para ser escutado e apoiado por plantonistas qualificados para escutar qualquer sofrimento emocional ou interesse em conversar que você tenha. A ideia não é realizar um tratamento contínuo e a resolução de grandes problemas, como é o caso da psicoterapia. Nossa proposta no Plantão é brevemente te ajudar a ter um alívio psicológico e encontrar caminhos para suas demandas emociomais mais urgentes. Em metáfora, o Plantão pode ser comparado com uma grande árvore, em que você pode utilizarpara respirar e se refrescar diante de um dia com um sol forte.</p>
+</section>
+
 <section id="projeto">
 <h2>Sobre o projeto</h2>
 <p>Os atendimentos do projeto de extensão "Plantão Psicológico na UFRRJ: Acolhimento e Prevenção" são realizados por psicólogos ou estudantes de psicologia voluntários ou bolsistas vinculados ao Departamento de Psicologia da Universidade Federal Rural do Rio de Janeiro (DEPSI/UFRRJ). O Projeto é coordenado e supervisionado pela Profª e Drª Carla Vicente do DEPSI-UFRRJ. Este serviço é mantido com o apoio da Pró-reitoria de assuntos Estudantis (PROAES) e da Pró-reitoria de Extensão (PROEXT) da UFRRJ.</p>
