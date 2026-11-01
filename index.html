@@ -2372,140 +2372,7 @@
   background-size:cover !important;
 }
 </style>
-
-<style id="ajustes-jardim-floresta-20261030">
-/* ===============================================
-   CORES EDITÁVEIS DOS CARTÕES DO JARDIM
-   Modifique somente os códigos #RRGGBB abaixo.
-   1 Dados, 2 Participantes, 3 Frequências, 4 Praticantes,
-   5 Presenciais, 6 Experiências, 7 Mural, 8 Certificados,
-   9 E-mail, 10 Manutenção Floresta, 11 Manutenção Home.
-   O símbolo do painel herda a cor do respectivo cartão.
-   =============================================== */
-#jardimAdmin .jardim-cartao:nth-of-type(1)  {--cor-cartao-jardim:#CE5773;}
-#jardimAdmin .jardim-cartao:nth-of-type(2)  {--cor-cartao-jardim:#578466;}
-#jardimAdmin .jardim-cartao:nth-of-type(3)  {--cor-cartao-jardim:#4C84A8;}
-#jardimAdmin .jardim-cartao:nth-of-type(4)  {--cor-cartao-jardim:#BF8B35;}
-#jardimAdmin .jardim-cartao:nth-of-type(5)  {--cor-cartao-jardim:#8567A4;}
-#jardimAdmin .jardim-cartao:nth-of-type(6)  {--cor-cartao-jardim:#C96F55;}
-#jardimAdmin .jardim-cartao:nth-of-type(7)  {--cor-cartao-jardim:#B65F91;}
-#jardimAdmin .jardim-cartao:nth-of-type(8)  {--cor-cartao-jardim:#C09329;}
-#jardimAdmin .jardim-cartao:nth-of-type(9)  {--cor-cartao-jardim:#4B8095;}
-#jardimAdmin .jardim-cartao:nth-of-type(10) {--cor-cartao-jardim:#648569;}
-#jardimAdmin .jardim-cartao:nth-of-type(11) {--cor-cartao-jardim:#648569;}
-/* Aplicar paleta no quadrado do ícone do cartão */
-#jardimAdmin .jardim-cartao > button.jardim-atalho::before {background:var(--cor-cartao-jardim, var(--jardim-icone-cor))!important;}
-.jardim-pagina .jardim-cabecalho::before {background:var(--icone-pagina-jardim,#517860)!important;color:#fff!important;content:var(--simbolo-pagina-jardim,'🌻')!important;}
-.jardim-retorno-topo.jardim-voltar-direto{margin-top:-2px;margin-bottom:12px;}
-.jardim-retorno-topo.jardim-voltar-direto .jardim-retorno-direto{display:inline-flex;gap:9px;align-items:center;cursor:pointer;}
-.jardim-voltar-flor{font-size:23px;line-height:1;}
-#inicio #experienciasPlantao > h2,
-#inicio #experienciasPlantao > p{color:#fff!important;text-shadow:0 2px 5px rgba(0,0,0,.95),0 0 13px rgba(0,0,0,.85)!important;}
-#inicio #experienciasPlantao > h2{background:rgba(23,59,46,.72);border-radius:12px;padding:10px 16px;display:table;}
-#inicio #experienciasPlantao > p{background:rgba(23,59,46,.78);padding:12px 16px;border-radius:12px;max-width:100%!important;}
-@media(min-width:801px){.retorno-frase-desktop{display:block;font:italic 16px Georgia,serif;color:#315f43;margin:7px 0 0;}}
-@media(max-width:800px){.retorno-frase-desktop{display:none;}}
-#retornarCliente .retorno-botao-voltar{background:#2d4fa7!important;display:flex;align-items:center;justify-content:center;}
-#retornarCliente .retorno-icone-cartao{display:block;width:26px;height:26px;background-image:var(--icone-retornar-cartao,none);background-position:center;background-repeat:no-repeat;background-size:contain;}
-/* Ornamentos decorativos de folhas nos cabeçalhos internos removidos.
-   Não se altera o símbolo de boas-vindas da Floresta. */
-.floresta-pagina-interna > .login-box::before{content:none!important;display:none!important;}
-.jardim-pagina .jardim-cartao::before{content:none!important;display:none!important;}
-</style>
-
-<script id="sincronizar-icones-cartoes-20261030">
-(function(){
-  const coresJardim = ['#CE5773','#578466','#4C84A8','#BF8B35','#8567A4','#C96F55','#B65F91','#C09329','#4B8095','#648569','#648569'];
-  const jardim = [
-    ['dadosPlantao','dadosPlantaoPerfil'],
-    ['menuParticipantes','participantes'],
-    ['frequenciasAdmin','novaJanelaAdmin','painelJustificativas','conferirPresencasAdmin','ausenciasAdmin','relatorioPresencaAdmin'],
-    ['verificarPraticantes'],['agendaAdmin'],['moderacaoExperiencias'],
-    ['administrarMural'],['certificadosAdmin'],['enviarEmail']
-  ];
-  const floresta = [
-    ['btnRetornarCliente',['retornarCliente']],
-    ['btnMeusPlantoes',['meusPlantoes']],
-    ['btnSupervisoes',['minhasSupervisoes','conferirPresenca','registrarFrequencia','registrarFalta']],
-    ['btnSolicitarPsicologo',['solicitarPsicologo']],
-    ['btnMarcarPresencial',['presencial','agendaPresencial','cadastroOnline']],
-    ['btnCertificados',['certificadosUsuario']],
-    ['btnEnviarFotos',['enviarFotos']],
-    ['btnMaterialEstudo',['materialEstudo']]
-  ];
-  function refresh(){
-    const cards=document.querySelectorAll('#jardimAdmin .jardim-cartao > button.jardim-atalho');
-    jardim.forEach((pages,i)=>{
-      const card=cards[i];if(!card)return;
-      card.style.setProperty('--cor-cartao-jardim',getComputedStyle(document.documentElement).getPropertyValue('--jardim-cor-cartao-'+(i+1)).trim() || coresJardim[i] || '#517860');
-      const style=getComputedStyle(card);
-      const symbol=card.dataset.icone || '🌻';
-      const color=style.getPropertyValue('--cor-cartao-jardim').trim() || style.getPropertyValue('--jardim-icone-cor').trim() || '#517860';
-      pages.forEach(id=>{
-        const pg=document.getElementById(id);if(!pg)return;
-        pg.style.setProperty('--icone-pagina-jardim',color);
-        pg.style.setProperty('--simbolo-pagina-jardim',JSON.stringify(symbol));
-      });
-    });
-    floresta.forEach(([buttonId,pages])=>{
-      const card=document.getElementById(buttonId);if(!card)return;
-      const cs=getComputedStyle(card);
-      const bg=cs.getPropertyValue('--icone-cor').trim() || cs.getPropertyValue('--cor-icone').trim();
-      const icon=cs.getPropertyValue('--card-icon').trim() || getComputedStyle(card,'::before').backgroundImage;
-      const accent=cs.getPropertyValue('--accent').trim();
-      pages.forEach(id=>{
-        const pg=document.getElementById(id);if(!pg)return;
-        if(icon && icon!=='none')pg.style.setProperty('--icone-retornar-cartao',icon);
-        if(icon && icon!=='none' && id==='retornarCliente') pg.style.setProperty('--icone-retornar-cartao',icon);
-        if(icon && icon!=='none') pg.style.setProperty('--icone-pagina-cartao',icon);
-        if(bg) pg.style.setProperty('--simbolo-pagina-cartao',icon);
-        if(icon && icon!=='none') pg.style.setProperty('--pagina-simbolo',icon);
-        if(icon && icon!=='none' && id==='retornarCliente')pg.style.setProperty('--icone-retornar-cartao',icon);
-        if(icon && icon!=='none' && id!=='retornarCliente')pg.style.setProperty('--pagina-simbolo',icon);
-        if(icon && icon!=='none') pg.style.setProperty('--icone-cartao-real',icon);
-        if(icon && icon!=='none' && id==='retornarCliente')pg.style.setProperty('--icone-retornar-cartao',icon);
-        if(icon && icon!=='none' && cs.getPropertyValue('--icone-cor').trim()) pg.style.setProperty('--pagina-cor',cs.getPropertyValue('--icone-cor').trim());
-      });
-    });
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);
-  else refresh();
-})();
-</script>
-
-<style id="jardim-cartoes-cores-editaveis">
-/* ALTERE OS 11 CÓDIGOS HEXADECIMAIS PARA PERSONALIZAR AS CORES DOS ÍCONES */
-:root{
-  --jardim-cor-cartao-1:#CE5773;
-  --jardim-cor-cartao-2:#578466;
-  --jardim-cor-cartao-3:#4C84A8;
-  --jardim-cor-cartao-4:#BF8B35;
-  --jardim-cor-cartao-5:#8567A4;
-  --jardim-cor-cartao-6:#C96F55;
-  --jardim-cor-cartao-7:#B65F91;
-  --jardim-cor-cartao-8:#C09329;
-  --jardim-cor-cartao-9:#4B8095;
-  --jardim-cor-cartao-10:#648569;
-  --jardim-cor-cartao-11:#648569;
-}
-
-#jardimAdmin button.jardim-atalho:nth-of-type(1) {--cor-cartao-jardim:#CE5773;}
-#jardimAdmin button.jardim-atalho:nth-of-type(2) {--cor-cartao-jardim:#578466;}
-#jardimAdmin button.jardim-atalho:nth-of-type(3) {--cor-cartao-jardim:#4C84A8;}
-#jardimAdmin button.jardim-atalho:nth-of-type(4) {--cor-cartao-jardim:#BF8B35;}
-#jardimAdmin button.jardim-atalho:nth-of-type(5) {--cor-cartao-jardim:#8567A4;}
-#jardimAdmin button.jardim-atalho:nth-of-type(6) {--cor-cartao-jardim:#C96F55;}
-#jardimAdmin button.jardim-atalho:nth-of-type(7) {--cor-cartao-jardim:#B65F91;}
-#jardimAdmin button.jardim-atalho:nth-of-type(8) {--cor-cartao-jardim:#C09329;}
-#jardimAdmin button.jardim-atalho:nth-of-type(9) {--cor-cartao-jardim:#4B8095;}
-#jardimAdmin button.jardim-atalho:nth-of-type(10) {--cor-cartao-jardim:#648569;}
-#jardimAdmin button.jardim-atalho:nth-of-type(11) {--cor-cartao-jardim:#648569;}
-</style>
-<style id="icone-floresta-identico-ao-cartao">
-.floresta-pagina-interna .floresta-interna-rama{background-image:var(--icone-cartao-real,none)!important;background-size:contain!important;background-position:center!important;background-repeat:no-repeat!important;background-color:transparent!important;color:transparent!important;border:0!important;}
-.floresta-pagina-interna .floresta-interna-rama:not([style]){font-size:0!important;}
-#retornarCliente .retorno-icone-cartao{background-image:var(--icone-retornar-cartao,none)!important;}
-</style><style id="frase-perfil-floresta-desktop">.frase-perfil-desktop{display:block;margin-top:5px;color:#315f43;font:italic 12px/1.3 Georgia,serif;white-space:normal;}@media(max-width:800px){.frase-perfil-desktop{display:none!important;}}</style></head>
+</head>
 <body>
 <div aria-label="Foto ampliada do plantão" aria-modal="true" class="foto-ampliada" id="fotoAmpliada" onclick="fecharFotoAmpliada()" role="dialog">
 <button aria-label="Fechar foto" onclick="fecharFotoAmpliada()" type="button">✕ Fechar</button>
@@ -2656,7 +2523,7 @@
 <button class="floresta-botao-ajuda" type="button" aria-label="Ajuda" title="Ajuda" onclick="florestaModalInfo('ajuda')">?</button>
 <div aria-label="Participante conectado" class="floresta-perfil">
 <div aria-hidden="true" class="floresta-avatar">✿</div>
-<div class="floresta-dados-perfil"><strong id="painelSaudacao"></strong><span class="perfil" id="painelPerfil"></span><span class="frase-perfil-desktop">Escute, acolha e transforme a si mesmo</span></div>
+<div class="floresta-dados-perfil"><strong id="painelSaudacao"></strong><span class="perfil" id="painelPerfil"></span></div>
 </div>
 <button class="btn-sair" onclick="sair()" title="Encerrar sessão" type="button">Sair ↗</button>
 </div>
@@ -2921,7 +2788,7 @@
 </footer>
 </div>
 </div>
-<div class="tela-integrada jardim-pagina" id="administrarMural" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="tela-integrada jardim-pagina" id="administrarMural" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box integrada-box jardim-box"><div class="jardim-cabecalho"><h2>📣 Publicar no Mural de Avisos</h2><p class="subtexto-integrado">Mensagens visíveis apenas aos participantes com acesso à plataforma. Escolha o público de cada comunicado.</p></div><div class="jardim-cartao">
 
 
@@ -3142,7 +3009,7 @@
 </div>
 </div>
 <!-- JARDIM DO ADMINISTRADOR (painel do bolsista) -->
-<div class="jardim-pagina" id="jardimAdmin"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="jardimAdmin"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:560px;"><div class="jardim-cabecalho"><h2>Jardim dos Bolsistas</h2><p class="jardim-subtitulo">Um espaço para organizar o projeto, compartilhar iniciativas e cultivar o cuidado em equipe.</p></div><div class="jardim-cartao">
 
 <button aria-description="Resumo dos atendimentos e indicadores do projeto." class="btn jardim-atalho" data-icone="📊" data-legenda="Resumo dos atendimentos e indicadores do projeto." onclick="mostrarDadosPlantao()" style="margin-bottom:10px;">Dados do Plantão</button>
@@ -3166,7 +3033,7 @@
 </footer>
 </div>
 </div>
-<div class="tela-integrada jardim-pagina" id="enviarEmail" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="tela-integrada jardim-pagina" id="enviarEmail" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box integrada-box jardim-box"><div class="jardim-cabecalho"><h2>✉️ Enviar e-mail</h2><p class="subtexto-integrado">Enviar mensagens da conta oficial do Plantão com seleção de destinatários e registro de cada envio.</p></div><div class="jardim-cartao">
 
 
@@ -3201,7 +3068,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="frequenciasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="frequenciasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:560px;"><div class="jardim-cabecalho"><h2>Frequências dos Plantonistas</h2></div><div class="jardim-cartao">
 
 <div class="menu-painel" style="margin-top:20px;">
@@ -3219,7 +3086,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="novaJanelaAdmin" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="novaJanelaAdmin" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:560px;"><div class="jardim-cabecalho"><h2>Janelas de frequência</h2></div><div class="jardim-cartao">
 
 <div id="mensagemAdmin"></div>
@@ -3251,7 +3118,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="painelJustificativas" style="display:none; margin-top:24px; text-align:left;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div><div class="login-box jardim-box-especial jardim-box"><div class="jardim-cabecalho"><h3 style="font-size:16px; margin-bottom:10px;">Justificativas pendentes</h3></div><div class="jardim-cartao">
+<div class="jardim-pagina" id="painelJustificativas" style="display:none; margin-top:24px; text-align:left;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="login-box jardim-box-especial jardim-box"><div class="jardim-cabecalho"><h3 style="font-size:16px; margin-bottom:10px;">Justificativas pendentes</h3></div><div class="jardim-cartao">
 
 <div id="mensagemJustificativasAdmin"></div>
 <div id="listaJustificativasAdmin">Carregando...</div>
@@ -3266,7 +3133,7 @@
 </footer>
 </div></div>
 <!-- CONFERIR PRESENÇAS (Jardim dos Bolsistas > Frequências) -->
-<div class="jardim-pagina" id="conferirPresencasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="conferirPresencasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:680px;"><div class="jardim-cabecalho"><h2>Conferir presenças</h2><p style="margin:8px 0 16px;color:#4a5c52;">Clique em uma pessoa para abrir o relatório de supervisões e treinamentos. Contas inativas não aparecem.</p></div><div class="jardim-cartao">
 
 
@@ -3284,7 +3151,7 @@
 </div>
 </div>
 <!-- CONFERIR AUSÊNCIAS -->
-<div class="jardim-pagina" id="ausenciasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="ausenciasAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:680px;"><div class="jardim-cabecalho"><h2>Conferir ausências</h2></div><div class="jardim-cartao">
 
 <p id="textoRegraAusencias" style="margin:8px 0 16px;color:#4a5c52;"></p>
@@ -3301,7 +3168,7 @@
 </div>
 </div>
 <!-- RELATÓRIO DE PRESENÇA DE UMA PESSOA -->
-<div class="jardim-pagina" id="relatorioPresencaAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="relatorioPresencaAdmin" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:680px;"><div class="jardim-cabecalho"><h2 id="relatorioPresencaTitulo"></h2></div><div class="jardim-cartao">
 
 <p id="relatorioPresencaSub" style="margin:8px 0 16px;color:#4a5c52;"></p>
@@ -3317,7 +3184,7 @@
 </div>
 </div>
 <!-- VERIFICAR PRATICANTES (download de relatórios por período, dentro do Jardim dos Bolsistas) -->
-<div class="jardim-pagina" id="verificarPraticantes" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="verificarPraticantes" style="display:none; min-height:90vh; justify-content:center; align-items:center; padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:480px;"><div class="jardim-cabecalho"><h2>Verificar Praticantes</h2></div><div class="jardim-cartao">
 
 <div id="mensagemPraticantes"></div>
@@ -3341,7 +3208,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="dadosPlantao" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="dadosPlantao" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:650px;width:100%;"><div class="jardim-cabecalho"><h2>Dados do Plantão</h2></div><div class="jardim-cartao">
 
 <div id="dadosPlantaoConteudo">Carregando...</div><div aria-live="polite" class="graficos-plantao" id="graficosPlantao"></div>
@@ -3361,7 +3228,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="dadosPlantaoPerfil" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="dadosPlantaoPerfil" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:650px;width:100%;"><div class="jardim-cabecalho"><h2 id="tituloDadosPerfil">Dados do perfil</h2></div><div class="jardim-cartao">
 
 <div aria-live="polite" id="dadosPlantaoPerfilConteudo">Carregando...</div><div aria-live="polite" class="graficos-plantao" id="graficosPlantaoPerfil"></div>
@@ -3375,7 +3242,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="menuParticipantes" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="menuParticipantes" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:590px;width:100%;"><div class="jardim-cabecalho"><h2>Verificar Participantes</h2><p>Consulte e atualize os cadastros do projeto ou baixe a listagem completa.</p></div><div class="jardim-cartao">
 
 
@@ -3395,7 +3262,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="moderacaoExperiencias" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="jardim-pagina" id="moderacaoExperiencias" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:900px;width:100%;"><div class="jardim-cabecalho"><h2>Revisar experiências recebidas</h2><p>Os relatos são privados por padrão. Só é permitido publicar aqueles com autorização expressa da pessoa. Você pode retirar uma publicação do ar a qualquer momento.</p></div><div class="jardim-cartao">
 
 
@@ -3412,7 +3279,7 @@
 </footer>
 </div>
 </div>
-<div class="jardim-pagina" id="participantes" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div><div class="login-box jardim-box" style="max-width:1000px;width:100%;"><div class="jardim-cabecalho"><h2 id="tituloListaParticipantes">Verificar Todos os Participantes</h2><p>Dados dos participantes registrados, incluindo matrícula e período de ingresso.</p></div><div class="jardim-cartao"><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;"><button class="btn" onclick="baixarParticipantes('Plantonista',true)">Baixar plantonistas ativos</button><button class="btn" onclick="baixarParticipantes('Treinando',true)">Baixar treinandos ativos</button><button class="btn" onclick="baixarParticipantes('Todos',true)">Baixar todos ativos</button></div><div id="listaParticipantes">Carregando...</div><span class="voltar" onclick="mostrarMenuParticipantes()">← Voltar a Verificar Participantes</span></div>
+<div class="jardim-pagina" id="participantes" style="display:none;min-height:90vh;justify-content:center;padding:20px;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="login-box jardim-box" style="max-width:1000px;width:100%;"><div class="jardim-cabecalho"><h2 id="tituloListaParticipantes">Verificar Todos os Participantes</h2><p>Dados dos participantes registrados, incluindo matrícula e período de ingresso.</p></div><div class="jardim-cartao"><div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;"><button class="btn" onclick="baixarParticipantes('Plantonista',true)">Baixar plantonistas ativos</button><button class="btn" onclick="baixarParticipantes('Treinando',true)">Baixar treinandos ativos</button><button class="btn" onclick="baixarParticipantes('Todos',true)">Baixar todos ativos</button></div><div id="listaParticipantes">Carregando...</div><span class="voltar" onclick="mostrarMenuParticipantes()">← Voltar a Verificar Participantes</span></div>
 <footer class="instituicoes-internas" aria-label="Instituições parceiras do Plantão Psicológico">
   <span class="instituicao-logo logo-plantao" role="img" aria-label="Plantão Psicológico UFRRJ"></span>
   <span class="instituicao-logo logo-ufrrj" role="img" aria-label="Universidade Federal Rural do Rio de Janeiro"></span>
@@ -3428,9 +3295,9 @@
 <span class="retorno-topo-legenda">🌿 Floresta dos Plantonistas</span>
 </header>
 <div class="retorno-apresentacao">
-<button aria-label="Voltar ao painel" class="retorno-botao-voltar" onclick="voltarAoPainel()" type="button" title="Voltar à Floresta"><span class="retorno-icone-cartao" aria-hidden="true"></span></button>
+<button aria-label="Voltar ao painel" class="retorno-botao-voltar" onclick="voltarAoPainel()" type="button">‹</button>
 <div class="retorno-cabecalho-texto">
-<span class="retorno-chamada">🌱 Um espaço de cuidado e escuta</span><span class="retorno-frase-desktop">Escute, acolha e transforme a si mesmo</span>
+<span class="retorno-chamada">🌱 Um espaço de cuidado e escuta</span>
 <h2>Retornar Cliente</h2>
 <p style="margin:10px 0 16px;">Selecione um cliente pendente para atualizar a situação.</p>
 </div>
@@ -3598,7 +3465,7 @@
 </div>
 </div>
 <!-- CONTROLE ADMINISTRATIVO DOS PLANTÕES MARCADOS -->
-<div class="tela-agenda jardim-pagina" id="agendaAdmin" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div><div class="jardim-retorno-topo jardim-voltar-direto"><button type="button" class="floresta-interna-identidade jardim-retorno-direto" onclick="voltarAoJardimAdmin()" aria-label="Voltar ao Jardim dos Bolsistas"><span class="jardim-voltar-flor" aria-hidden="true">🌻</span><span>Jardim dos Bolsistas</span></button></div>
+<div class="tela-agenda jardim-pagina" id="agendaAdmin" style="display:none;"><div class="jardim-retorno-topo"><button type="button" class="floresta-interna-identidade floresta-retorno-direto" onclick="voltarAoPainel()" aria-label="Voltar à Floresta dos Plantonistas"><svg aria-hidden="true" width="23" height="23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><path d="m19 8-12 20h8L7 40h24l-8-12h8L19 8Z" fill="#5C936B" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M19 40v12" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="m43 4-12 19h8l-8 12h24l-8-12h8L43 4Z" fill="#92BE7A" stroke="#326D4D" stroke-width="2.5" stroke-linejoin="round"/><path d="M43 35v18" stroke="#79563A" stroke-width="4" stroke-linecap="round"/><path d="M8 54h48" stroke="#4F855C" stroke-width="3" stroke-linecap="round"/></svg><span>Floresta dos Plantonistas</span></button></div>
 <div class="login-box jardim-box" style="max-width:760px;width:100%;"><div class="jardim-cabecalho"><h2>Verificar plantões presenciais ativos</h2><p style="margin:12px 0 18px;color:#4a5c52;line-height:1.5;">Confira, altere ou cancele os plantões divulgados pelos participantes.</p></div><div class="jardim-cartao">
 
 
@@ -4159,6 +4026,41 @@
       document.getElementById('listaParticipantes').textContent='Carregando...';
       carregarParticipantes_(renderParticipantes);window.scrollTo(0,0);
     }
+    // Acesso delegado: só substitui a sessão após autorização no backend.
+    let sessaoAdminOriginal = null;
+    function iniciarAcessoAdministrador(p, botao) {
+      if (!usuarioAtual || usuarioAtual.perfil.toLowerCase() !== 'bolsista' || sessaoAdminOriginal) return;
+      const senha = prompt('Informe sua senha mestra para acessar a conta de ' + p.nome + ':');
+      if (senha === null || !senha) return;
+      botao.disabled = true;
+      google.script.run.withSuccessHandler(r => {
+        botao.disabled = false;
+        if (!r || !r.sucesso) { alert((r && r.mensagem) || 'Acesso não autorizado.'); return; }
+        sessaoAdminOriginal = {...usuarioAtual, listaAtivos: participantesSomenteAtivos};
+        mostrarPainel(r.nome, r.email, r.perfil, r.habilitado, r.ativo);
+        usuarioAtual.tokenFreq = r.tokenFreq;
+        usuarioAtual.acessoAdministrativo = true;
+        const aviso = document.getElementById('barraAcessoAdminDelegado');
+        aviso.style.display = 'flex';
+        document.getElementById('textoAcessoAdminDelegado').textContent = 'Acesso administrativo: ' + r.nome;
+        window.scrollTo(0,0);
+      }).withFailureHandler(e => {
+        botao.disabled = false;
+        alert('Falha na autorização administrativa: ' + (e.message || e));
+      }).segAcessarContaComoAdmin(usuarioAtual.email, usuarioAtual.tokenFreq, p.email, senha);
+    }
+    function encerrarAcessoAdministrador() {
+      if (!sessaoAdminOriginal) return;
+      const sessaoDelegada = usuarioAtual;
+      const original = sessaoAdminOriginal;
+      sessaoAdminOriginal = null;
+      document.getElementById('barraAcessoAdminDelegado').style.display = 'none';
+      google.script.run.withFailureHandler(e=>console.warn('Falha ao encerrar sessão delegada',e))
+        .pgEncerrarSessao(sessaoDelegada.email,sessaoDelegada.tokenFreq);
+      mostrarPainel(original.nome,original.email,original.perfil,original.habilitado,original.ativo);
+      usuarioAtual.tokenFreq=original.tokenFreq;
+      mostrarParticipantes(original.listaAtivos);
+    }
     function renderParticipantes(){
       const el=document.getElementById('listaParticipantes');el.innerHTML='';
       const itens=participantesCache.filter(p=>!participantesSomenteAtivos||p.ativo);
@@ -4177,7 +4079,7 @@
         <label>Ativo<select data-k="ativo"><option value="true" ${p.ativo?'selected':''}>Ativo</option><option value="false" ${!p.ativo?'selected':''}>Inativo</option></select></label></div>
         <p>Supervisões: ${p.presencas} | Casos narrados: ${p.narracoes}</p>
         <p>Atendidos: ${p.atendidos} | Desistentes: ${p.desistentes} | Transferidos: ${p.transferidos} | Pendentes: ${p.pendentes}</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"><button class="btn" data-save>Salvar alterações</button><button class="btn" data-mail>Enviar e-mail</button></div>`;
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"><button class="btn" data-save>Salvar alterações</button><button class="btn" data-mail>Enviar e-mail</button><button class="btn" data-admin>Acessar como administrador</button></div>`;
         card.querySelector('[data-save]').onclick=()=>{
           const d={};card.querySelectorAll('[data-k]').forEach(n=>d[n.dataset.k]=n.value);
           d.ativo=d.ativo==='true';d.habilitado=d.habilitado==='true';
@@ -4186,6 +4088,10 @@
           .atualizarParticipante(usuarioAtual.email,p.linha,d,usuarioAtual.tokenFreq);
         };
         card.querySelector('[data-mail]').onclick=()=>window.open('https://mail.google.com/mail/?view=cm&to='+encodeURIComponent(card.querySelector('[data-k="email"]').value),'_blank');
+        const btnAdmin=card.querySelector('[data-admin]');
+        btnAdmin.disabled=!p.ativo;
+        btnAdmin.title=p.ativo?'Acessar esta conta usando autorização administrativa':'Somente contas ativas';
+        btnAdmin.onclick=()=>iniciarAcessoAdministrador(p,btnAdmin);
         el.appendChild(card);
       });
     }
@@ -4457,6 +4363,12 @@
     }
 
     function sair() {
+      if (sessaoAdminOriginal && sessaoAdminOriginal.tokenFreq) {
+        google.script.run.withFailureHandler(e=>console.warn(e))
+          .pgEncerrarSessao(sessaoAdminOriginal.email,sessaoAdminOriginal.tokenFreq);
+      }
+      sessaoAdminOriginal=null;
+      document.getElementById('barraAcessoAdminDelegado').style.display='none';
       if(usuarioAtual && usuarioAtual.tokenFreq){
         google.script.run.withFailureHandler(e=>console.warn('Não foi possível invalidar a sessão remota.',e))
           .pgEncerrarSessao(usuarioAtual.email,usuarioAtual.tokenFreq);
@@ -6631,5 +6543,9 @@ paint();
  document.addEventListener('keydown',e=>{if(e.key==='Escape' && painel.querySelector('.floresta-mobile-aberta'))florestaAlternarMenuMobile(false)});
 })();
 </script>
+<div id="barraAcessoAdminDelegado" style="display:none;position:fixed;bottom:12px;left:12px;right:12px;z-index:100000;align-items:center;justify-content:space-between;gap:12px;background:#173b2e;color:white;padding:12px 16px;border-radius:12px;box-shadow:0 4px 18px #0006;flex-wrap:wrap;" role="status">
+  <strong id="textoAcessoAdminDelegado">Acesso administrativo</strong>
+  <button type="button" onclick="encerrarAcessoAdministrador()" style="padding:10px 14px;border:0;border-radius:8px;cursor:pointer;">Voltar à minha conta</button>
+</div>
 </body>
 </html>
