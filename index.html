@@ -6,6 +6,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="2026-10-23-index2-mobile-tablet-v3" name="plantao-build"/>
 <title>Plantão Psicológico</title>
+<script>if (location.hash === '#acesso-floresta') document.documentElement.classList.add('plantao-link-login');</script>
 <script>
     // Estado de manutenção lembrado neste navegador. Não guarda dados pessoais.
     // A verificação com o servidor continua ocorrendo a cada abertura do site.
@@ -6547,30 +6548,59 @@ paint();
   <strong id="textoAcessoAdminDelegado">Acesso administrativo</strong>
   <button type="button" onclick="encerrarAcessoAdministrador()" style="padding:10px 14px;border:0;border-radius:8px;cursor:pointer;">Voltar à minha conta</button>
 </div>
-<!-- Links diretos públicos: avaliação e tela de login da Floresta. -->
+<!-- Links diretos públicos: avaliação e login da Floresta. -->
+<style>
+  html.plantao-link-login #inicio { display: none !important; }
+  html.plantao-link-login #login { display: flex !important; }
+</style>
 <script>
 (function () {
+  'use strict';
+  const destinoLogin = 'acesso-floresta';
+  function tirarModoLinkLogin() {
+    document.documentElement.classList.remove('plantao-link-login');
+  }
   function abrirDestinoDireto() {
-    const destino = decodeURIComponent(window.location.hash.slice(1));
-    if (destino === 'acesso-floresta') {
-      if (typeof mostrarLogin === 'function' && document.getElementById('login')) {
-        mostrarLogin();
-      }
-    } else if (destino === 'experienciasPlantao') {
-      const secao = document.getElementById('experienciasPlantao');
-      if (secao) {
-        // A âncora funciona naturalmente; garante alinhamento após a renderização.
-        requestAnimationFrame(function () {
-          secao.scrollIntoView({ behavior: 'auto', block: 'start' });
-        });
+    const destino = decodeURIComponent(location.hash.slice(1));
+    if (destino === destinoLogin) {
+      // Não concede acesso: mostra apenas o formulário normal de autenticação.
+      const inicio = document.getElementById('inicio');
+      const login = document.getElementById('login');
+      if (!inicio || !login) return;
+      document.documentElement.classList.add('plantao-link-login');
+      inicio.style.display = 'none';
+      login.style.display = 'flex';
+      window.scrollTo(0, 0);
+      const aviso = document.getElementById('mensagemLogin');
+      if (aviso) { aviso.textContent = ''; aviso.className = ''; }
+    } else {
+      tirarModoLinkLogin();
+      if (destino === 'experienciasPlantao') {
+        const secao = document.getElementById('experienciasPlantao');
+        if (secao) requestAnimationFrame(() => secao.scrollIntoView({block:'start',behavior:'auto'}));
       }
     }
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', abrirDestinoDireto, { once: true });
-  } else {
-    abrirDestinoDireto();
+  // Após login bem-sucedido, libere o painel sem interferir na autenticação.
+  function observarNavegacao() {
+    const painel = document.getElementById('painel');
+    if (painel) {
+      new MutationObserver(() => {
+        if (getComputedStyle(painel).display !== 'none') tirarModoLinkLogin();
+      }).observe(painel, {attributes:true,attributeFilter:['style']});
+    }
+    // O botão Voltar do login deve poder retornar à página inicial.
+    const login = document.getElementById('login');
+    if (login) login.addEventListener('click', function(evento) {
+      if (evento.target.closest('.voltar')) {
+        tirarModoLinkLogin();
+        if (location.hash === '#' + destinoLogin) history.replaceState(history.state, '', location.pathname + location.search);
+      }
+    }, true);
   }
+  function iniciarLinks() { observarNavegacao(); abrirDestinoDireto(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciarLinks, {once:true});
+  else iniciarLinks();
   window.addEventListener('hashchange', abrirDestinoDireto);
 })();
 </script>
