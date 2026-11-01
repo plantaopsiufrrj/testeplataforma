@@ -6547,5 +6547,32 @@ paint();
   <strong id="textoAcessoAdminDelegado">Acesso administrativo</strong>
   <button type="button" onclick="encerrarAcessoAdministrador()" style="padding:10px 14px;border:0;border-radius:8px;cursor:pointer;">Voltar à minha conta</button>
 </div>
+<!-- Links diretos públicos: avaliação e tela de login da Floresta. -->
+<script>
+(function () {
+  function abrirDestinoDireto() {
+    const destino = decodeURIComponent(window.location.hash.slice(1));
+    if (destino === 'acesso-floresta') {
+      if (typeof mostrarLogin === 'function' && document.getElementById('login')) {
+        mostrarLogin();
+      }
+    } else if (destino === 'experienciasPlantao') {
+      const secao = document.getElementById('experienciasPlantao');
+      if (secao) {
+        // A âncora funciona naturalmente; garante alinhamento após a renderização.
+        requestAnimationFrame(function () {
+          secao.scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+      }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', abrirDestinoDireto, { once: true });
+  } else {
+    abrirDestinoDireto();
+  }
+  window.addEventListener('hashchange', abrirDestinoDireto);
+})();
+</script>
 </body>
 </html>
